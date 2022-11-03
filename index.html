@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        main{
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(90deg, cadetblue, darkslategrey);
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        }
+        #main{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        #head{
+            width: 90%;
+            height: 10vh;
+            border: 2px solid white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1{
+            color: white;
+        }
+        #list{
+            width: 90%;
+            height: 85vh;
+            border: 2px solid white;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .box{
+            width: 260px;
+            height: 150px;
+            border: 2px solid white;
+            border-radius: 10px;
+            margin: 5px; 
+            padding: 3px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .box>div:nth-of-type(1){
+            width: 27%;
+            height: 100%;
+        }
+        .box>div:nth-of-type(2){
+            width: 73%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .box>div>h3{
+            width: 100%;
+            font-size: 12px;
+            margin-top: 5px;
+            border-bottom: 1px solid white;
+            padding-bottom: 5px;
+        }
+        .box>div>figure{
+            width: 90%;
+            height: 40%;
+        }
+        .box>div>figure>img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <div id="main">
+            <div id="head">
+                <h1>Staff list</h1>
+            </div>
+            <div id="list"></div>
+        </div>
+    </main>
+</body>
+    <script>
+            fetch('https://randomuser.me/api/?results=12')
+            .then((data)=> data.json())
+            .then( _list => {
+                let _array = _list.results
+                    _array.map(function(item){
+                    document.getElementById('list').innerHTML+=`
+                    <div class="box">
+                        <div>
+                            <figure>
+                                <img src="${item.picture.medium}" alt="">
+                            </figure>
+                        </div>
+                        <div>
+                            <h3>${item.name.title}.${item.name.first} ${item.name.last}</h3>
+                            <h3>age : ${item.registered.age}</h3>
+                            <h3>email : ${item.email}</h3>
+                            <h3>place of birth: ${item.location.country}</h3>
+                        </div>
+                    </div>
+                    `
+                    })
+            })
+    </script>
+</html>
